@@ -1,0 +1,12 @@
+.touchButtonRootWrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 0px;
+    z-index: 999;
+}
+
+.touchButton .button{
+    font-size: 20px;
+    margin: 5px;
+}

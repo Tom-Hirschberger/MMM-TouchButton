@@ -1,0 +1,23 @@
+{
+  "name": "MMM-TouchButton",
+  "version": "0.0.1",
+  "description": "",
+  "main": "MMM-TouchButton",
+  "dependencies": {
+    "child_process": "latest"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Tom-Hirschberger/MMM-Temperature.git"
+  },
+  "author": "Thomas Hirschberger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tom-Hirschberger/MMM-Temperature/issues"
+  },
+  "homepage": "https://github.com/Tom-Hirschberger/MMM-Temperature/#readme"
+}
