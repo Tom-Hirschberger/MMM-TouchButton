@@ -6,16 +6,16 @@ This module displays buttons that can be controlled by touch or mouse click. As 
 
 ## Installation ##
 ```
-
-		cd ~/MagicMirror/modules
-		git clone https://github.com/Tom-Hirschberger/MMM-TouchButton.git
-		cd MMM-TouchButton
-		npm install
+  
+  cd ~/MagicMirror/modules
+  git clone https://github.com/Tom-Hirschberger/MMM-TouchButton.git
+  cd MMM-TouchButton
+  npm install
 ```
 
 ## Configuration ##
 ```json5
-
+  
         {
 			module: "MMM-TouchButton",
 			position: "bottom_left",
@@ -28,7 +28,7 @@ This module displays buttons that can be controlled by touch or mouse click. As 
 
 An example with three buttons. One to shutdown the host, one to reboot it and one to hide/show a module:
 ```json5
-		
+  
         {
 			module: "MMM-TouchButton",
 			position: "bottom_left",
