@@ -2,14 +2,14 @@
 This module displays buttons that can be controlled by touch or mouse click. As an action either a script can be run on the commandline or/and an notification can be send. Each button gets an unique css class based on a name to make it possible to change the size and color individually.
 
 ## Screenshots ##
-![Three colored buttons](https://github.com/Tom-Hirschberger/MMM-TouchSensor/screenshots/threeColoredButtons.png "Three colored buttons")
+![Three colored buttons](https://github.com/Tom-Hirschberger/MMM-TouchButton/raw/master/screenshots/threeColoredButtons.png "Three colored buttons")
 
 ## Installation ##
 ```
-	cd ~/MagicMirror/modules
-    git clone https://github.com/Tom-Hirschberger/MMM-TouchButton.git
-    cd MMM-TouchButton
-    npm install
+		cd ~/MagicMirror/modules
+		git clone https://github.com/Tom-Hirschberger/MMM-TouchButton.git
+		cd MMM-TouchButton
+		npm install
 ```
 
 ## Configuration ##
