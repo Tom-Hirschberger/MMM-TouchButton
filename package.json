@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Tom-Hirschberger/MMM-Temperature.git"
+    "url": "https://github.com/Tom-Hirschberger/MMM-TouchButton.git"
   },
   "author": "Thomas Hirschberger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tom-Hirschberger/MMM-Temperature/issues"
+    "url": "https://github.com/Tom-Hirschberger/MMM-TouchButton.git/issues"
   },
-  "homepage": "https://github.com/Tom-Hirschberger/MMM-Temperature/#readme"
+  "homepage": "https://github.com/Tom-Hirschberger/MMM-TouchButton.git/#readme"
 }
