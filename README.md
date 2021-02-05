@@ -57,6 +57,8 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 		},
 ```
 
+**This module only sends notifications or calls scripts. If you want to get the module toggle example to work you need to install [MMM-ModuleToggle](https://github.com/Trekky12/MMM-ModuleToggle), too**
+
 ### General ###
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
