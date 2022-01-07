@@ -9,6 +9,7 @@
 Module.register('MMM-TouchButton', {
 
   defaults: {
+    addEmptyTitle: false,
     buttons: []
   },
 
@@ -25,8 +26,25 @@ Module.register('MMM-TouchButton', {
         var buttonWrapper = document.createElement("div")
           buttonWrapper.className="touchButton buttonWrapper"
 
+          let curTitle = null
+          if ((typeof curButtonConfig.title === "undefined") ||
+              (curButtonConfig.title === null)){
+              if (self.config.addEmptyTitle){
+                curTitle = "&nbsp;"
+              }
+          } else {
+            curTitle = curButtonConfig.title
+          }
+
+          if (curTitle !== null){
+                curTitleObj = document.createElement("div")
+                  curTitleObj.className = "touchButton button title title-"+curButtonConfig.name
+                  curTitleObj.innerHTML = curTitle
+            buttonWrapper.appendChild(curTitleObj)
+          }
+
           let curButton = document.createElement("i")
-            curButton.className = curButtonConfig.icon+" touchButton button button-"+curButtonConfig.name
+            curButton.className = curButtonConfig.icon+" touchButton button icon button-"+curButtonConfig.name
 
             curButton.addEventListener("click", ()=>{ self.sendSocketNotification("BUTTON_PRESSED", {"id": curId}) })
           buttonWrapper.appendChild(curButton)

@@ -62,6 +62,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 ### General ###
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
+| addEmptyTitle | If titles are used for some buttons this option makes it possible to add empty title dummys to all buttons without title | Boolean | false |
 | buttons | The array containing an object for each button | Array [] | [] |
 
 ### Buttons ###
@@ -70,6 +71,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | name | The name of the button. The button gets assigned a css class called "button-BUTTON_NAME". Do not use spaces in the name! | String | "" |
 | icon | Choose an Font Awesome 4.7 icon which should be displayed as a button. | String like "fa fa-refresh" | "" |
 | command | An command which should be run if the button gets pressed (only the command, the arguments will be configured seperatly) | String like "sudo" | "" |
+| title | An optional title can be added to buttons. Simply configure a String you want to display | String | null |
 | args | All arguments of the command that should be run. | String like "reboot" | "" |
 | notification | An notification that should be send if the button gets pressed. | String like "MODULE_LOGGLE" | "" |
 | payload | The payload of the notification to send | Object like {toggle:["Clock"]} | {} |
