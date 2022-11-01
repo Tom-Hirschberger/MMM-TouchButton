@@ -18,13 +18,17 @@ module.exports = NodeHelper.create({
   },
 
   runButtonAction: function(moduleId, buttonConfig, buttonId) {
-    console.log("Do action of button: "+buttonConfig.name)
+    console.log("Do action(s) of button: "+buttonConfig.name)
 
     let output = null
     let errOut = null
     let returnCode = null
     if(typeof buttonConfig.command !== "undefined"){
       let curCommand = buttonConfig.command
+
+      // if(curCommand.startsWith("./")){
+      //   curCommand = scriptsDir+"/"+curCommand
+      // }
       let args = []
 
       if(typeof buttonConfig.args !== "undefined"){
@@ -51,10 +55,15 @@ module.exports = NodeHelper.create({
       }
 
       try {
+        // console.log("Running "+curCommand + " with args: "+args.toString())
         let spawnOutput = spawnSync(curCommand, args, options)
         returnCode = spawnOutput.status
         output = spawnOutput.stdout
         errOut = spawnOutput.stderr
+
+        // console.log("ReturnCode: "+returnCode)
+        // console.log("Output: "+output)
+        // console.log("ErrOut: "+errOut)
       } catch (error) {
         console.log(error)
       }

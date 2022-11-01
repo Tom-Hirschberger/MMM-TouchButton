@@ -2,7 +2,7 @@
 RETURN_CODE=0
 if [ $# -gt 0 ]
 then
-	RETURN_CODE=1
+	RETURN_CODE=$1
 fi
 
 echoerr() { echo -e "$@" 1>&2; }

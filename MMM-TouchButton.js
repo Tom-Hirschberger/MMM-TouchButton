@@ -25,31 +25,19 @@ Module.register('MMM-TouchButton', {
 
   validateCondition: function(source, value, type){
     if (type == "eq"){
-      if(source === value){
-        return true
-      }
+      return source === value
     } else if (type == "incl"){
-      if(source.includes(value)){
-        return true
-      }
+      return source.includes(value)
     } else if (type == "mt") {
       return new RegExp(value).test(source)
     } else if (type == "lt"){
-      if(source < value){
-        return true
-      }
+      return source < value
     } else if (type == "le"){
-      if(source <= value){
-        return true
-      }
+      return source <= value
     } else if (type == "gt"){
-      if(source > value) {
-        return true
-      }
+      return source > value
     } else if (type == "ge"){
-      if(source >= value){
-        return true
-      }
+      return source >= value
     }
 
     return false
@@ -81,7 +69,6 @@ Module.register('MMM-TouchButton', {
               if(typeof curCondition["classes"] !== "undefined"){
                 curCondition["classes"].split(" ").forEach(element => classes.push(element))
               }
-              
               break
             }
           }
@@ -125,7 +112,7 @@ Module.register('MMM-TouchButton', {
             curButton.classList.add("imgIcon")
           } else if (curCondButtonConfig[0] != null){
             curButton = document.createElement("i")
-            curButton.className = curButtonConfig.icon
+            curButton.className = curCondButtonConfig[0]
             curButton.classList.add("icon")
           }
 
