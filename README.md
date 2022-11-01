@@ -1,11 +1,20 @@
-# MMM-TouchButton ##
+# MMM-TouchButton
+
 This module displays buttons that can be controlled by touch or mouse click. As an action either a script can be run on the commandline or/and an notification can be send. Each button gets an unique css class based on a name to make it possible to change the size and color individually.
 
-## Screenshots ##
+## Todo
+
+* Profile support
+* Classes based on return code or error and output content of commands
+* Change icons based on return code or error and output content of commands
+
+## Screenshots
+
 ![Three colored buttons](https://github.com/Tom-Hirschberger/MMM-TouchButton/raw/master/screenshots/threeColoredButtons.png "Three colored buttons")
 
-## Installation ##
-```
+## Installation
+
+```bash
   
   cd ~/MagicMirror/modules
   git clone https://github.com/Tom-Hirschberger/MMM-TouchButton.git
@@ -13,58 +22,62 @@ This module displays buttons that can be controlled by touch or mouse click. As 
   npm install
 ```
 
-## Configuration ##
+## Configuration
+
 ```json5
   
         {
-			module: "MMM-TouchButton",
-			position: "bottom_left",
-			config: {
-				buttons: [
-				]
-			},
-		},
+   module: "MMM-TouchButton",
+   position: "bottom_left",
+   config: {
+    buttons: [
+    ]
+   },
+  },
 ```
 
 An example with three buttons. One to shutdown the host, one to reboot it and one to hide/show a module:
+
 ```json5
   
         {
-			module: "MMM-TouchButton",
-			position: "bottom_left",
-			config: {
-				buttons: [
-					{
-						name: "Shutdown",
-						icon: "fa fa-power-off",
-						command: "sudo",
-						args: "shutdown -h now"
-					},
-					{
-						name: "Reboot",
-						icon: "fa fa-refresh",
-						command: "sudo",
-						args: "reboot"
-					},
-					{
-						name: "Snow",
-						icon: "fa fa-snowflake-o",
-						notification: "MODULE_TOGGLE",
-						payload: {hide: [], show: [], toggle:["Clock"]}
-					},
-				]
-			},
-		},
+   module: "MMM-TouchButton",
+   position: "bottom_left",
+   config: {
+    buttons: [
+     {
+      name: "Shutdown",
+      icon: "fa fa-power-off",
+      command: "sudo",
+      args: "shutdown -h now"
+     },
+     {
+      name: "Reboot",
+      icon: "fa fa-refresh",
+      command: "sudo",
+      args: "reboot"
+     },
+     {
+      name: "Snow",
+      icon: "fa fa-snowflake-o",
+      notification: "MODULE_TOGGLE",
+      payload: {hide: [], show: [], toggle:["Clock"]}
+     },
+    ]
+   },
+  },
 ```
 
 **This module only sends notifications or calls scripts. If you want to get the module toggle example to work you need to install [MMM-ModuleToggle](https://github.com/Trekky12/MMM-ModuleToggle), too**
 
-### General ###
+### General
+
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
 | buttons | The array containing an object for each button | Array [] | [] |
 
-### Buttons ###
+### Buttons
+
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
 | name | The name of the button. The button gets assigned a css class called "button-BUTTON_NAME". Do not use spaces in the name! | String | "" |
