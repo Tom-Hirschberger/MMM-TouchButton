@@ -115,6 +115,7 @@ The following compare types are possible:
 * "ge" greater equal
 * "eq" equal
 * "incl" includes
+* "mt" value is a regex that should be matched
 
 The following sources are possible:
 
