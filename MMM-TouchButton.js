@@ -11,7 +11,6 @@ Module.register('MMM-TouchButton', {
   defaults: {
     animationSpeed: 0,
     classes: null,
-    profiles: null,
     buttons: [],
   },
 
