@@ -80,6 +80,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | ------- | --- | --- | --- |
 | animationSpeed | If the module updates the visible objects the changes can be animated. | Integer | 0 |
 | classes | A space separted String of CSS classes that should be added to the wrapper classes. If you use mulitiple instances of the module you can style them differently by added different classes. | String like "myClass1 myClass2 | null |
+| addEmptyTitle | If titles are used for some buttons this option makes it possible to add empty title dummys to all buttons without title | Boolean | false |
 | buttons | The array containing an object for each button | Array [] | [] |
 
 ### Buttons
@@ -91,6 +92,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | imgIcon | If you prefere to set a image as icon instead of a font icon you can configure the url with this option. Simply place the images in the "icons" directory. **If both the icon and imgIcon option are set the image icon is used!** | String like "./modules/MMM-TouchButton/icons/tom.jpg" | null |
 | command | An command which should be run if the button gets pressed (only the command, the arguments will be configured seperatly) | String like "sudo" | "" |
 | args | All arguments of the command that should be run. | String like "reboot" or a array of Strings | "" |
+| title | An optional title can be added to buttons. Simply configure a String you want to display | String | null |
 | notification | An notification that should be send if the button gets pressed. | String like "MODULE_LOGGLE" | "" |
 | payload | The payload of the notification to send | Object like {toggle:["Clock"]} | {} |
 | profiles | A space separated String which specifies at which profiles this button shuld be visible. If not present the button will be visible at all profiles. | String like "pageOne pageTwo" | null |

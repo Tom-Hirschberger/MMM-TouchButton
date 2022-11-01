@@ -6,8 +6,19 @@
     z-index: 999;
 }
 
-.touchButton .button{
+.touchButton .button.icon{
     font-size: 20px;
     margin: 5px;
+}
+
+.touchButton .button.imgIcon{
     width: 20px;
+    margin: 5px;
+}
+
+.touchButton .button.title {
+    font-size: 16px;
+    text-align: center;
+    margin: 5px;
+    margin-bottom: 10px;
 }

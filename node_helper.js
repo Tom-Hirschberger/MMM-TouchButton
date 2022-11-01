@@ -18,7 +18,8 @@ module.exports = NodeHelper.create({
   },
 
   runButtonAction: function(moduleId, buttonConfig, buttonId) {
-    console.log("Do action(s) of button: "+buttonConfig.name)
+    const self = this
+    console.log(self.name+": Do action(s) of button: "+buttonConfig.name)
 
     let output = null
     let errOut = null

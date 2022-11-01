@@ -12,6 +12,8 @@ Module.register('MMM-TouchButton', {
     animationSpeed: 0,
     classes: null,
     buttons: [],
+    addEmptyTitle: false,
+    buttons: []
   },
 
   getScripts: function () {
@@ -104,6 +106,24 @@ Module.register('MMM-TouchButton', {
         var buttonWrapper = document.createElement("div")
           buttonWrapper.className="touchButton buttonWrapper"
 
+          let curTitle = null
+          if ((typeof curButtonConfig.title === "undefined") ||
+            (curButtonConfig.title === null)){
+            if (self.config.addEmptyTitle){
+              curTitle = "&nbsp;"
+            }
+          } else {
+            curTitle = curButtonConfig.title
+          }
+
+          if (curTitle !== null){
+            let curTitleObj = document.createElement("div")
+            curTitleObj.className = "touchButton button title title-"+curButtonConfig.name
+            curTitleObj.innerHTML = curTitle
+            
+            buttonWrapper.appendChild(curTitleObj)
+          }
+
           let curButton = null
           if (curCondButtonConfig[1] != null ){
             curButton = document.createElement("img")
@@ -114,6 +134,8 @@ Module.register('MMM-TouchButton', {
             curButton.className = curCondButtonConfig[0]
             curButton.classList.add("icon")
           }
+
+          
 
           if(curButton != null){
             curButton.classList.add("touchButton")
