@@ -4,7 +4,7 @@
   "description": "",
   "main": "MMM-TouchButton",
   "dependencies": {
-    "child_process": "latest"
+    "js-uuid": "latest"
   },
   "devDependencies": {},
   "scripts": {

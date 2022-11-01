@@ -1,3 +1,5 @@
 .project
 node_modules
 package-lock.json
+icons/*
+scripts/*
