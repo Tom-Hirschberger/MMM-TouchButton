@@ -5,7 +5,6 @@
  * MIT Licensed.
  */
 const NodeHelper = require('node_helper')
-//const execSync = require('child_process').execSync
 const spawnSync = require('child_process').spawnSync
 const fs = require('fs')
 const path = require('path')
@@ -15,9 +14,10 @@ module.exports = NodeHelper.create({
 
   start: function () {
     this.started = false
+    this.configs = {}
   },
 
-  runButtonAction: function(buttonConfig, buttonId) {
+  runButtonAction: function(moduleId, buttonConfig, buttonId) {
     console.log("Do action of button: "+buttonConfig.name)
 
     let output = null
@@ -61,12 +61,12 @@ module.exports = NodeHelper.create({
     }
 
     if(typeof buttonConfig.notification !== "undefined"){
-      // console.log("Initiate send of notification")
-      this.sendSocketNotification("SEND_NOTIFICATION", {"notification":buttonConfig.notification, "payload": buttonConfig.payload})
+      this.sendSocketNotification("SEND_NOTIFICATION", {"moduleId": moduleId, "notification":buttonConfig.notification, "payload": buttonConfig.payload})
     }
 
     if (returnCode != null){
       this.sendSocketNotification("RESULT", {
+        moduleId: moduleId,
         id: buttonId,
         code: returnCode,
         err: errOut,
@@ -80,11 +80,11 @@ module.exports = NodeHelper.create({
 
   socketNotificationReceived: function (notification, payload) {
     const self = this
-    if (notification === 'CONFIG' && self.started === false) {
-      self.config = payload
+    if (notification === 'CONFIG') {
+      self.configs[payload[0]] = payload[1]
       self.started = true
     } else if (notification === 'BUTTON_PRESSED' ){
-      self.runButtonAction(self.config.buttons[payload.id], payload.id)
+      self.runButtonAction(payload.moduleId, self.configs[payload.moduleId].buttons[payload.id], payload.id)
     } else {
       console.log(this.name + ': Received Notification: ' + notification)
     }

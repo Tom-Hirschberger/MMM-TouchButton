@@ -12,8 +12,12 @@ Module.register('MMM-TouchButton', {
     animationSpeed: 0,
     classes: null,
     profiles: null,
-    buttons: []
+    buttons: [],
   },
+
+  getScripts: function () {
+		return [this.file('node_modules/js-uuid/js-uuid.js')];
+	},
 
   getStyles: function() {
     return ['font-awesome.css', 'touch-button.css']
@@ -97,7 +101,9 @@ Module.register('MMM-TouchButton', {
         self.config["classes"].split(" ").forEach(element => moduleClasses.push(element))
       }
 
-      wrapper.className = "touchButtonRootWrapper"
+      wrapper.classList.add("touchButtonRootWrapper")
+      moduleClasses.forEach(element => wrapper.classList.add(element))
+
       for(let curId = 0; curId < self.config.buttons.length; curId++){
         let curButtonConfig = self.config.buttons[curId]
 
@@ -129,7 +135,7 @@ Module.register('MMM-TouchButton', {
             curButton.classList.add("button-"+curButtonConfig.name)
             curCondButtonConfig[2].forEach(element => curButton.classList.add(element))
 
-            curButton.addEventListener("click", ()=>{ self.sendSocketNotification("BUTTON_PRESSED", {"id": curId}) })
+            curButton.addEventListener("click", ()=>{ self.sendSocketNotification("BUTTON_PRESSED", {"moduleId": self.moduleId, "id": curId}) })
             buttonWrapper.appendChild(curButton)
           }
         wrapper.appendChild(buttonWrapper)
@@ -139,8 +145,9 @@ Module.register('MMM-TouchButton', {
 
   start: function () {
     const self = this
+    self.moduleId = uuid.v4()
     Log.info("Starting module: " + self.name);
-    self.sendSocketNotification('CONFIG', self.config)
+    self.sendSocketNotification('CONFIG', [self.moduleId, self.config])
     self.results = {}
     self.currentProfile = null
   },
@@ -155,13 +162,14 @@ Module.register('MMM-TouchButton', {
 
   socketNotificationReceived: function (notification, payload) {
     const self = this
-
-    if(notification === "SEND_NOTIFICATION"){
-      console.log(self.name+": Sending notification to all other modules")
-      self.sendNotification(payload.notification, payload.payload)
-    } else if (notification === "RESULT"){
-      self.results[payload.id] = payload
-      self.updateDom(self.config.animationSpeed)
+    if (self.moduleId === payload["moduleId"]){
+      if(notification === "SEND_NOTIFICATION"){
+        console.log(self.name+": Sending notification to all other modules")
+        self.sendNotification(payload.notification, payload.payload)
+      } else if (notification === "RESULT"){
+        self.results[payload.id] = payload
+        self.updateDom(self.config.animationSpeed)
+      }
     }
   },
 })
