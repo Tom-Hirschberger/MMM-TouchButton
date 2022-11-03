@@ -85,7 +85,7 @@ Module.register('MMM-TouchButton', {
     const wrapper = document.createElement('div')
       let moduleClasses = []
       
-      if(typeof self.config["classes"] !== "undefined"){
+      if(self.config["classes"] != null){
         self.config["classes"].split(" ").forEach(element => moduleClasses.push(element))
       }
 
