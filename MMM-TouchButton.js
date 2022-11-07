@@ -133,6 +133,7 @@ Module.register('MMM-TouchButton', {
             if(curCondButtonConfig[0].startsWith("fa ")){
               curButton = document.createElement("i")
               curButton.className = curCondButtonConfig[0]
+              curButton.setAttribute("aria-hidden", "true")
               curButton.classList.add("icon")
             } else {
               curButton = document.createElement("span")
