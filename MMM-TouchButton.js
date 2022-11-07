@@ -17,7 +17,7 @@ Module.register('MMM-TouchButton', {
   },
 
   getScripts: function () {
-		return [this.file('node_modules/js-uuid/js-uuid.js')];
+		return [this.file('node_modules/js-uuid/js-uuid.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
   getStyles: function() {
@@ -130,12 +130,17 @@ Module.register('MMM-TouchButton', {
             curButton.setAttribute("src", curCondButtonConfig[1])
             curButton.classList.add("imgIcon")
           } else if (curCondButtonConfig[0] != null){
-            curButton = document.createElement("i")
-            curButton.className = curCondButtonConfig[0]
-            curButton.classList.add("icon")
+            if(curCondButtonConfig[0].startsWith("fa ")){
+              curButton = document.createElement("i")
+              curButton.className = curCondButtonConfig[0]
+              curButton.setAttribute("aria-hidden", "true")
+              curButton.classList.add("icon")
+            } else {
+              curButton = document.createElement("span")
+              curButton.classList.add("iconify-inline")
+              curButton.setAttribute("data-icon", curCondButtonConfig[0])
+            }
           }
-
-          
 
           if(curButton != null){
             curButton.classList.add("touchButton")

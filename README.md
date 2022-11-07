@@ -7,7 +7,7 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 ## Features
 
 * Add icons as buttons to send notifications or call commands
-* Either use [fontawesome 4.7](https://fontawesome.com/v4/icons/) or images as icons
+* Either use [Fontawesome 4.7](https://fontawesome.com/v4/icons/), [Iconify](https://icon-sets.iconify.design) or images as icons
 * Deceide which buttons to show depending on the current active profile ([MMM-ProfileSwitcher](https://github.com/tosti007/MMM-ProfileSwitcher))
 * Add additional classes to the buttons to style them with CSS
 * Add the module at multiple positions with different configurations
@@ -88,7 +88,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
 | name | The name of the button. The button gets assigned a css class called "button-BUTTON_NAME". Do not use spaces in the name! | String | "" |
-| icon | Choose an Font Awesome 4.7 icon which should be displayed as a button. | String like "fa fa-refresh" | "" |
+| icon | Choose an [Fontawesome 4.7](https://fontawesome.com/v4/icons/) or [Iconify](https://icon-sets.iconify.design) icon which should be displayed as a button. | String like "fa fa-refresh" or "fluent-emoji:test-tube" | "" |
 | imgIcon | If you prefere to set a image as icon instead of a font icon you can configure the url with this option. Simply place the images in the "icons" directory. **If both the icon and imgIcon option are set the image icon is used!** | String like "./modules/MMM-TouchButton/icons/tom.jpg" | null |
 | command | An command which should be run if the button gets pressed (only the command, the arguments will be configured seperatly) | String like "sudo" | "" |
 | args | All arguments of the command that should be run. | String like "reboot" or a array of Strings | "" |
@@ -145,7 +145,7 @@ Lets look at this example now:
       },
       {
         name: "Test",
-        icon: "fa fa-desktop",
+        icon: "fluent-emoji:test-tube",
         command: "./test.bash",
         args: "0",
         profiles: "pageL1 pageL2 pageL3",
@@ -199,7 +199,7 @@ In this example two instances of the module will be added at "top_center" and "t
     * The icon will be "fa fa-circle-o"
     * If the button gets pressed the notification "USER_PRESENCE" with the payload "true" will be send
   * Button with name "Test"
-    * The icon "fa fa-desktop" will be used (but not if the first conditions matches)
+    * The icon "fluent-emoji:test-tube" will be used (but not if the first conditions matches)
     * The command "./test.bash" will be called with the first argument set to "0"
     * The button will be only visible if the active profile is either "pageL1", "pageL2" or "pageL3"
     * If the output includes the String "my" the icon "fa fa-bath" will be used

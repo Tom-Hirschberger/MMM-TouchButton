@@ -4,7 +4,8 @@
   "description": "",
   "main": "MMM-TouchButton",
   "dependencies": {
-    "js-uuid": "latest"
+    "js-uuid": "latest",
+    "@iconify/iconify": "latest"
   },
   "devDependencies": {},
   "scripts": {
