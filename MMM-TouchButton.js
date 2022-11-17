@@ -137,8 +137,11 @@ Module.register('MMM-TouchButton', {
               curButton.classList.add("icon")
             } else {
               curButton = document.createElement("span")
-              curButton.classList.add("iconify-inline")
-              curButton.setAttribute("data-icon", curCondButtonConfig[0])
+              curButton.classList.add("iconify")
+              curButtonIconWrapper = document.createElement("span")
+              curButtonIconWrapper.classList.add("iconify-inline")
+              curButtonIconWrapper.setAttribute("data-icon", curCondButtonConfig[0])
+              curButton.appendChild(curButtonIconWrapper)
             }
           }
 
