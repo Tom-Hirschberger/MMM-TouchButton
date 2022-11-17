@@ -82,6 +82,10 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | classes | A space separted String of CSS classes that should be added to the wrapper classes. If you use mulitiple instances of the module you can style them differently by added different classes. | String like "myClass1 myClass2 | null |
 | addEmptyTitle | If titles are used for some buttons this option makes it possible to add empty title dummys to all buttons without title | Boolean | false |
 | buttons | The array containing an object for each button | Array [] | [] |
+| refreshOnNotification | If conditions which use the payload of notifications as type the modules content gets refreshed if one of these notifications is received. | Boolean | true |
+| refreshOnlyIfValueChanged | Normally the module gets refreshed if one of the conditional notifications gets received. If "refreshOnlyIfValueChanged" is set to true the module only gets refreshed if the payload of the notification changed to the last refresh. | Boolean | true |
+| notificationsAtStart | If the module should send some notifications after the startup the can be configured in this array. The array should contain a array of for each notification. The first element is the name, the second one the payload. The payload is optional. (i.e. notificationsAtStart: [["dummyOne"], ["dummyTwo", "dummyPayload"]]). | Array | [] |
+| notificationDelay | The notifications configured with notificationsAtStart will be send after this amout of milliseconds after the module got started. | Integer | 3000 |
 
 ### Buttons
 
@@ -101,7 +105,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 
 ### Conditions
 
-The module can be configured to display different icons or change the css classes added to the button elements based on the output or return codes of the commands.
+The module can be configured to display different icons or change the css classes added to the button elements based on the output or return codes of the commands or the payload of received notifications.
 
 The conditions array contains objects that specify what to check against which values.
 
@@ -122,8 +126,11 @@ The following sources are possible:
 * "out" which is the standard out stream (normal output) of the command
 * "err" which is the error stream of the command
 * "code" which is the return code of the command (unix style is to return 0 if everything is fine and anything else if a problem occured)
+* Any other type will be interpreted as the name of a notification
 
 And we need a value to compare to which is configured with the "value" option.
+
+If the value is a valid JSON object you can use [jsonpath-plus](https://github.com/JSONPath-Plus/JSONPath) to search for a specific element (only the first one which matches the [jsonpath-plus](https://github.com/JSONPath-Plus/JSONPath) expression is used).
 
 #### Example
 
@@ -141,7 +148,22 @@ Lets look at this example now:
         classes: "up_1",
         icon: "fa fa-circle-o",
         notification: "USER_PRESENCE",
-        payload: true
+        payload: true,
+        conditions: [
+          {
+            source: "MY_DUMMY_NOTIFICATION",
+            type: "eq",
+            value: "dummy_payload",
+            icon: "ic:baseline-lightbulb"
+          },
+          {
+            source: "MY_DUMMY_NOTIFICATION_TWO",
+            type: "eq",
+            value: true,
+            jsonpath: "output"
+            icon: "fa fa-bath"
+          }
+        ]
       },
       {
         name: "Test",
@@ -198,6 +220,7 @@ In this example two instances of the module will be added at "top_center" and "t
     * The elements get the html class "up_1" added
     * The icon will be "fa fa-circle-o"
     * If the button gets pressed the notification "USER_PRESENCE" with the payload "true" will be send
+    * If a notification "MY_DUMMY_NOTIFICATION" with value "dummy_payload" is received by the module the icon "ic:baseline-lightbulb" is used instead of the normal icon "fa fa-circle-o". If the "MY_DUMMY_NOTIFICATION_TWO" notification is received with a JSON object as payload that contains the path "output" (i.e. {"output": false, "notNeeded": 123}) the icon "fa fa-bath" is used.
   * Button with name "Test"
     * The icon "fluent-emoji:test-tube" will be used (but not if the first conditions matches)
     * The command "./test.bash" will be called with the first argument set to "0"

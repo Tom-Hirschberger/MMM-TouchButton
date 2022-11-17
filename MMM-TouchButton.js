@@ -13,11 +13,15 @@ Module.register('MMM-TouchButton', {
     classes: null,
     buttons: [],
     addEmptyTitle: false,
-    buttons: []
+    buttons: [],
+    refreshOnNotification: true,
+    refreshOnlyIfValueChanged: true,
+    notificationDelay: 3000,
+    notificationsAtStart: []
   },
 
   getScripts: function () {
-		return [this.file('node_modules/js-uuid/js-uuid.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
+		return [this.file('node_modules/jsonpath-plus/dist/index-browser-umd.js'), this.file('node_modules/js-uuid/js-uuid.js'), this.file('node_modules/@iconify/iconify/dist/iconify.min.js')];
 	},
 
   getStyles: function() {
@@ -57,13 +61,23 @@ Module.register('MMM-TouchButton', {
       for (let curCondition of buttonConfig["conditions"]){
         let source = curCondition["source"] || null
         let type = curCondition["type"] || null
-        let value = curCondition["value"] || null
+        let value = null
+        if (typeof curCondition["value"] !== "undefined"){
+          value = curCondition["value"]
+        }
+        let jsonpath = curCondition["jsonpath"] || null
 
         if((source != null) && (type != null) && (value != null)){
-          let curSource = buttonResults[source]
+          let curSource
+          if(jsonpath != null){
+            curSource = buttonResults[source+jsonpath]
+          } else {
+            curSource = buttonResults[source]
+          }
 
           if(curSource != null){
-            if(self.validateCondition(curSource, value, type)){
+            let valResult = self.validateCondition(curSource, value, type)
+            if(valResult){
               icon = curCondition["icon"] || icon
               imgIcon = curCondition["imgIcon"] || imgIcon
               classes = []
@@ -137,8 +151,11 @@ Module.register('MMM-TouchButton', {
               curButton.classList.add("icon")
             } else {
               curButton = document.createElement("span")
-              curButton.classList.add("iconify-inline")
-              curButton.setAttribute("data-icon", curCondButtonConfig[0])
+              curButton.classList.add("iconify")
+              curButtonIconWrapper = document.createElement("span")
+              curButtonIconWrapper.classList.add("iconify-inline")
+              curButtonIconWrapper.setAttribute("data-icon", curCondButtonConfig[0])
+              curButton.appendChild(curButtonIconWrapper)
             }
           }
 
@@ -163,14 +180,116 @@ Module.register('MMM-TouchButton', {
     self.sendSocketNotification('CONFIG', [self.moduleId, self.config])
     self.results = {}
     self.currentProfile = null
+    self.notifications = {}
+    self.watchNotifications = false
+    for(let curBtnId = 0; curBtnId < self.config.buttons.length; curBtnId++){
+      let curButtonConfig = self.config.buttons[curBtnId]
+      let curConditions = curButtonConfig["conditions"] || null
+      if (curConditions != null){
+        for (let curCondId = 0; curCondId < curConditions.length; curCondId++){
+          let curSource = curConditions[curCondId].source || null
+
+          if((curSource != null) && (curSource != "out") && (curSource != "err") && (curSource != "code")){
+            let curNotiObj = self.notifications[curSource] || []
+            let curResObj = {}
+            curResObj["id"] = curBtnId
+            curResObj["condition"] = curConditions[curCondId]
+            curNotiObj.push(curResObj)
+            self.notifications[curSource] = curNotiObj
+            self.watchNotifications = true
+          }
+        }
+      }
+    }
+
+    setTimeout(()=>{
+      for (let curNotiId = 0; curNotiId < self.config.notificationsAtStart.length; curNotiId++){
+        let curNotiObj = self.config.notificationsAtStart[curNotiId]
+        if (curNotiObj.length > 1){
+          self.sendNotification(curNotiObj[0], curNotiObj[1])
+        } else {
+          self.sendNotification(curNotiObj[0])
+        }
+      }
+    }, self.config.notificationDelay)
   },
+
+  //https://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string
+	tryParseJSONObject: function (jsonString) {
+		try {
+			var o = JSON.parse(jsonString);
+
+			// Handle non-exception-throwing cases:
+			// Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+			// but... JSON.parse(null) returns null, and typeof null === "object",
+			// so we must check for that, too. Thankfully, null is falsey, so this suffices:
+			if (o && typeof o === "object") {
+				return o;
+			}
+		}
+		catch (e) { }
+
+		return false;
+	},
 
   notificationReceived: function (notification, payload) {
 		const self = this
 		if (notification === "CHANGED_PROFILE") {
 			self.currentProfile = payload.to
       self.updateDom(self.config.animationSpeed)
-		} 
+		}
+
+    if(self.watchNotifications){
+      if (typeof self.notifications[notification] !== "undefined"){
+        let refreshNeeded = false
+        let curNotificationUsers = self.notifications[notification]
+        for(let curCondBtnIdx = 0; curCondBtnIdx < curNotificationUsers.length; curCondBtnIdx++){
+          let curId = curNotificationUsers[curCondBtnIdx].id
+          let curCondition = curNotificationUsers[curCondBtnIdx].condition
+          let curJsonpath = curCondition.jsonpath || null
+          let curResult
+          
+          if (curJsonpath != null) {
+            let curParsedPayload = self.tryParseJSONObject(payload)
+            if(curParsedPayload){
+              curResult = JSONPath.JSONPath({ path: curJsonpath, json: curParsedPayload })[0];
+            } else {
+              curResult = payload
+            }
+          } else {
+            curResult = payload
+          }
+
+          let curResultExtendedNotification = notification
+          if (curJsonpath != null){
+            curResultExtendedNotification += curJsonpath
+          }
+
+          let oldResultObj = self.results[curId] || null
+          
+          let oldResult = null
+          if(oldResultObj != null){
+            oldResult = oldResultObj[curResultExtendedNotification] || null
+          } else {
+            oldResultObj = {}
+          }
+
+          if (oldResult !== curResult) {
+            oldResultObj[curResultExtendedNotification] = curResult
+            self.results[curId] = oldResultObj
+            refreshNeeded = true
+          } else {
+            if (!self.config.refreshOnlyIfValueChanged) {
+              refreshNeeded = true
+            }
+          }
+        }
+
+        if(refreshNeeded){
+          self.updateDom(self.config.animationSpeed)
+        }
+      }
+    }
 	},
 
   socketNotificationReceived: function (notification, payload) {
