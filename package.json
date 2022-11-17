@@ -5,6 +5,7 @@
   "main": "MMM-TouchButton",
   "dependencies": {
     "js-uuid": "latest",
+    "jsonpath-plus": "5.0.1",
     "@iconify/iconify": "latest"
   },
   "devDependencies": {},
