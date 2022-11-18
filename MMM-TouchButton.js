@@ -134,6 +134,7 @@ Module.register('MMM-TouchButton', {
             let curTitleObj = document.createElement("div")
             curTitleObj.className = "touchButton button title title-"+curButtonConfig.name
             curTitleObj.innerHTML = curTitle
+            curCondButtonConfig[2].forEach(element => curTitleObj.classList.add(element))
             
             buttonWrapper.appendChild(curTitleObj)
           }
