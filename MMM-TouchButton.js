@@ -298,7 +298,11 @@ Module.register('MMM-TouchButton', {
     if (self.moduleId === payload["moduleId"]){
       if(notification === "SEND_NOTIFICATION"){
         console.log(self.name+": Sending notification to all other modules")
-        self.sendNotification(payload.notification, payload.payload)
+        if(typeof payload.payload !== "undefined"){
+          self.sendNotification(payload.notification, payload.payload)
+        } else {
+          self.sendNotification(payload.notification)
+        }
       } else if (notification === "RESULT"){
         self.results[payload.id] = payload
         self.updateDom(self.config.animationSpeed)
