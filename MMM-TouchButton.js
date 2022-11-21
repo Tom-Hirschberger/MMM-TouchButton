@@ -35,7 +35,7 @@ Module.register('MMM-TouchButton', {
   validateCondition: function(source, value, type){
     if (type == "eq"){
       if ((typeof source === "number") || (this.isAString(source))){
-        return source === value
+        return source == value
       } else {
         return JSON.stringify(source) === value
       }
@@ -43,7 +43,7 @@ Module.register('MMM-TouchButton', {
       if (this.isAString(source)){
         return source === value
       } else {
-        return JSON.stringify(source).includes(value) === value
+        return JSON.stringify(source).includes(value)
       }
     } else if (type == "mt") {
       if (this.isAString(source)){
@@ -75,6 +75,7 @@ Module.register('MMM-TouchButton', {
 
     if (typeof buttonConfig["conditions"] !== "undefined"){
       for (let curCondition of buttonConfig["conditions"]){
+        console.log("VALIDATE:  "+JSON.stringify(curCondition))
         let source = curCondition["source"] || null
         let type = curCondition["type"] || null
         let value = null
