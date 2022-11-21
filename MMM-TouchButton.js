@@ -28,13 +28,29 @@ Module.register('MMM-TouchButton', {
     return ['font-awesome.css', 'touch-button.css']
   },
 
+  isAString: function(x) {
+    return Object.prototype.toString.call(x) === "[object String]"
+  },
+
   validateCondition: function(source, value, type){
     if (type == "eq"){
-      return source === value
+      if ((typeof source === "number") || (this.isAString(source))){
+        return source === value
+      } else {
+        return JSON.stringify(source) === value
+      }
     } else if (type == "incl"){
-      return source.includes(value)
+      if (this.isAString(source)){
+        return source === value
+      } else {
+        return JSON.stringify(source).includes(value) === value
+      }
     } else if (type == "mt") {
-      return new RegExp(value).test(source)
+      if (this.isAString(source)){
+        return new RegExp(value).test(source)
+      } else {
+        return new RegExp(value).test(JSON.stringify(source))
+      }
     } else if (type == "lt"){
       return source < value
     } else if (type == "le"){
