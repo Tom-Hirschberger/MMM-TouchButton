@@ -71,7 +71,11 @@ module.exports = NodeHelper.create({
     }
 
     if(typeof buttonConfig.notification !== "undefined"){
-      this.sendSocketNotification("SEND_NOTIFICATION", {"moduleId": moduleId, "notification":buttonConfig.notification, "payload": buttonConfig.payload})
+      if (typeof buttonConfig.payload !== "undefined"){
+        this.sendSocketNotification("SEND_NOTIFICATION", {"moduleId": moduleId, "notification":buttonConfig.notification, "payload": buttonConfig.payload})
+      } else {
+        this.sendSocketNotification("SEND_NOTIFICATION", {"moduleId": moduleId, "notification":buttonConfig.notification})
+      }
     }
 
     if (returnCode != null){

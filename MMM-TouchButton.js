@@ -28,13 +28,29 @@ Module.register('MMM-TouchButton', {
     return ['font-awesome.css', 'touch-button.css']
   },
 
+  isAString: function(x) {
+    return Object.prototype.toString.call(x) === "[object String]"
+  },
+
   validateCondition: function(source, value, type){
     if (type == "eq"){
-      return source === value
+      if ((typeof source === "number") || (this.isAString(source))){
+        return source == value
+      } else {
+        return JSON.stringify(source) === value
+      }
     } else if (type == "incl"){
-      return source.includes(value)
+      if (this.isAString(source)){
+        return source === value
+      } else {
+        return JSON.stringify(source).includes(value)
+      }
     } else if (type == "mt") {
-      return new RegExp(value).test(source)
+      if (this.isAString(source)){
+        return new RegExp(value).test(source)
+      } else {
+        return new RegExp(value).test(JSON.stringify(source))
+      }
     } else if (type == "lt"){
       return source < value
     } else if (type == "le"){
@@ -59,6 +75,7 @@ Module.register('MMM-TouchButton', {
 
     if (typeof buttonConfig["conditions"] !== "undefined"){
       for (let curCondition of buttonConfig["conditions"]){
+        console.log("VALIDATE:  "+JSON.stringify(curCondition))
         let source = curCondition["source"] || null
         let type = curCondition["type"] || null
         let value = null
@@ -134,6 +151,7 @@ Module.register('MMM-TouchButton', {
             let curTitleObj = document.createElement("div")
             curTitleObj.className = "touchButton button title title-"+curButtonConfig.name
             curTitleObj.innerHTML = curTitle
+            curCondButtonConfig[2].forEach(element => curTitleObj.classList.add(element))
             
             buttonWrapper.appendChild(curTitleObj)
           }
@@ -297,7 +315,11 @@ Module.register('MMM-TouchButton', {
     if (self.moduleId === payload["moduleId"]){
       if(notification === "SEND_NOTIFICATION"){
         console.log(self.name+": Sending notification to all other modules")
-        self.sendNotification(payload.notification, payload.payload)
+        if(typeof payload.payload !== "undefined"){
+          self.sendNotification(payload.notification, payload.payload)
+        } else {
+          self.sendNotification(payload.notification)
+        }
       } else if (notification === "RESULT"){
         self.results[payload.id] = payload
         self.updateDom(self.config.animationSpeed)

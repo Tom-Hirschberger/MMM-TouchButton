@@ -1,0 +1,37 @@
+.MMM-TouchButton .plugs .button .button.icon {
+    font-size: 150px;
+}
+
+.MMM-TouchButton .plugs .button .iconify-inline {
+    width: 150px;
+    height: 150px;
+}
+
+.MMM-TouchButton .touchButton .button.imgIcon{
+    width: 140px;
+    margin: 5px;
+}
+
+.MMM-TouchButton .button-SPlug1,
+.MMM-TouchButton .button-SPlug2,
+.MMM-TouchButton .title-SPlug1,
+.MMM-TouchButton .title-SPlug2 {
+    filter: brightness(0) saturate(100%) invert(97%) sepia(0%) saturate(2257%) hue-rotate(323deg) brightness(89%) contrast(82%);
+    color: #CBCBCB;
+}
+
+.MMM-TouchButton .button-SPlug1.plug-on,
+.MMM-TouchButton .button-SPlug2.plug-on,
+.MMM-TouchButton .title-SPlug1.plug-on,
+.MMM-TouchButton .title-SPlug2.plug-on {
+    filter: brightness(0) saturate(100%) invert(86%) sepia(37%) saturate(694%) hue-rotate(12deg) brightness(103%) contrast(82%);
+    color: #D4E157
+}
+
+.MMM-TouchButton .button-SPlug1.plug-overpower,
+.MMM-TouchButton .button-SPlug2.plug-overpower,
+.MMM-TouchButton .title-SPlug1.plug-overpower,
+.MMM-TouchButton .title-SPlug2.plug-overpower {
+    filter: brightness(0) saturate(100%) invert(62%) sepia(39%) saturate(2590%) hue-rotate(326deg) brightness(101%) contrast(94%);
+    color: #F77A52
+}
