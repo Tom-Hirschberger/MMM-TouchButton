@@ -1,4 +1,4 @@
-/* Magic Mirror
+/* MagicMirror²
  * Module: TouchButton
  *
  * By Tom Hirschberger
