@@ -28,6 +28,8 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 
 ## Configuration
 
+**Warning: Do not use spaces in the buttons names. You can use spaces in the button titles but not in the names!**
+
 ```json5
   
         {
