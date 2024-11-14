@@ -162,7 +162,7 @@ Lets look at this example now:
             source: "MY_DUMMY_NOTIFICATION_TWO",
             type: "eq",
             value: true,
-            jsonpath: "output"
+            jsonpath: "output",
             icon: "fa fa-bath"
           }
         ]
