@@ -1,6 +1,6 @@
 {
   "name": "MMM-TouchButton",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A MagicMirror² module to create touchable buttons displayed with icons that can be used to call scripts or send notifications.",
   "main": "MMM-TouchButton",
   "dependencies": {
