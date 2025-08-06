@@ -1,0 +1,542 @@
+{
+  "schema": {
+    "MMM-TouchButton": {
+      "type": "object",
+      "title": "properties for MMM-TouchButton",
+      "properties": {
+        "module": {
+          "type": "string",
+          "title": "module",
+          "default": "MMM-TouchButton",
+          "readonly": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "title": "disabled",
+          "default": false
+        },
+        "position": {
+          "type": "string",
+          "title": "module position",
+          "readonly": "true"
+        },
+        "classes": {
+          "type": "string",
+          "title": "classes",
+          "default": ""
+        },
+        "header": {
+          "type": "string",
+          "title": "header",
+          "default": ""
+        },
+        "hiddenOnStartup": {
+          "type": "boolean",
+          "title": "hiddenOnStartup",
+          "default": false
+        },
+        "configDeepMerge": {
+          "type": "boolean",
+          "title": "configDeepMerge",
+          "default": false
+        },
+        "order": {
+          "type": "string",
+          "title": "order",
+          "default": "*"
+        },
+        "inconfig": {
+          "type": "string",
+          "title": "inconfig",
+          "default": "0"
+        },
+        "index": {
+          "type": "integer"
+        },
+        "animateIn": {
+          "type": "string",
+          "enum": [
+            "None",
+            "bounce",
+            "flash",
+            "pulse",
+            "rubberBand",
+            "shakeX",
+            "shakeY",
+            "headShake",
+            "swing",
+            "tada",
+            "wobble",
+            "jello",
+            "heartBeat",
+            "backInDown",
+            "backInLeft",
+            "backInRight",
+            "backInUp",
+            "bounceIn",
+            "bounceInDown",
+            "bounceInLeft",
+            "bounceInRight",
+            "bounceInUp",
+            "fadeIn",
+            "fadeInDown",
+            "fadeInDownBig",
+            "fadeInLeft",
+            "fadeInLeftBig",
+            "fadeInRight",
+            "fadeInRightBig",
+            "fadeInUp",
+            "fadeInUpBig",
+            "fadeInTopLeft",
+            "fadeInTopRight",
+            "fadeInBottomLeft",
+            "fadeInBottomRight",
+            "flip",
+            "flipInX",
+            "flipInY",
+            "lightSpeedInRight",
+            "lightSpeedInLeft",
+            "rotateIn",
+            "rotateInDownLeft",
+            "rotateInDownRight",
+            "rotateInUpLeft",
+            "rotateInUpRight",
+            "jackInTheBox",
+            "rollIn",
+            "zoomIn",
+            "zoomInDown",
+            "zoomInLeft",
+            "zoomInRight",
+            "zoomInUp",
+            "slideInDown",
+            "slideInLeft",
+            "slideInRight",
+            "slideInUp"
+          ]
+        },
+        "animateOut": {
+          "type": "string",
+          "enum": [
+            "None",
+            "backOutDown",
+            "backOutLeft",
+            "backOutRight",
+            "backOutUp",
+            "bounceOut",
+            "bounceOutDown",
+            "bounceOutLeft",
+            "bounceOutRight",
+            "bounceOutUp",
+            "fadeOut",
+            "fadeOutDown",
+            "fadeOutDownBig",
+            "fadeOutLeft",
+            "fadeOutLeftBig",
+            "fadeOutRight",
+            "fadeOutRightBig",
+            "fadeOutUp",
+            "fadeOutUpBig",
+            "fadeOutTopLeft",
+            "fadeOutTopRight",
+            "fadeOutBottomRight",
+            "fadeOutBottomLeft",
+            "flipOutX",
+            "flipOutY",
+            "lightSpeedOutRight",
+            "lightSpeedOutLeft",
+            "rotateOut",
+            "rotateOutDownLeft",
+            "rotateOutDownRight",
+            "rotateOutUpLeft",
+            "rotateOutUpRight",
+            "hinge",
+            "rollOut",
+            "zoomOut",
+            "zoomOutDown",
+            "zoomOutLeft",
+            "zoomOutRight",
+            "zoomOutUp",
+            "slideOutDown",
+            "slideOutLeft",
+            "slideOutRight",
+            "slideOutUp"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "config",
+          "properties": {
+            "animationSpeed": {
+              "type": "integer"
+            },
+            "classes": {
+              "type": "string"
+            },
+            "buttons": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string"
+                  },
+                  "imgIcon": {
+                    "type": "string"
+                  },
+                  "command": {
+                    "type": "string"
+                  },
+                  "args": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "notification": {
+                    "type": "string"
+                  },
+                  "payload": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "payload": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "profiles": {
+                    "type": "string"
+                  },
+                  "classes": {
+                    "type": "string"
+                  },
+                  "conditions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "source": {
+                          "type": "string",
+                          "enum":[
+                            "out",
+                            "err",
+                            "code"
+                          ]
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum":[
+                            "lt",
+                            "le",
+                            "gt",
+                            "ge",
+                            "eq",
+                            "incl",
+                            "mt"
+                          ]
+                        },
+                        "value": {
+                          "type": "string"
+                        },
+                        "icon": {
+                          "type": "string"
+                        },
+                        "jsonpath": {
+                          "type": "string"
+                        },
+                        "imgIcon": {
+                          "type": "string"
+                        },
+                        "classes": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "addEmptyTitle": {
+              "type": "boolean"
+            },
+            "refreshOnNotification": {
+              "type": "boolean"
+            },
+            "refreshOnlyIfValueChanged": {
+              "type": "boolean"
+            },
+            "notificationDelay": {
+              "type": "integer"
+            },
+            "notificationsAtStart": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "form": [
+    {
+      "key": "MMM-TouchButton.disabled",
+      "htmlClass": "disabled_checkbox",
+      "description": "when checked the module will not be used by MagicMirror<br> but will remain in config.js if already present"
+    },
+    {
+      "key": "MMM-TouchButton.position",
+      "description": "use Module Positions section below to set or change"
+    },
+    {
+      "key": "MMM-TouchButton.header",
+      "description": "header to use for this module"
+    },
+    {
+      "key": "MMM-TouchButton.hiddenOnStartup",
+      "description": "Set module as being hidden on startup. This field is optional."
+    },
+    {
+      "key": "MMM-TouchButton.configDeepMerge",
+      "description": "Allow to merge with internal configuration in deep"
+    },
+    {
+      "key": "MMM-TouchButton.classes",
+      "description": "css classes to use for this module, beyond what MM provides"
+    },
+    {
+      "key": "MMM-TouchButton.order",
+      "type": "hidden"
+    },
+    {
+      "key": "MMM-TouchButton.inconfig",
+      "type": "hidden"
+    },
+    {
+      "key": "MMM-TouchButton.animateIn",
+      "title": "animateIn",
+      "description": "select one of these to change the behavior when the module is shown"
+    },
+    {
+      "key": "MMM-TouchButton.animateOut",
+      "title": "animateOut",
+      "description": "select one of these to change the behavior when the module is hidden"
+    },
+    {
+      "key": "MMM-TouchButton.index",
+      "type": "hidden"
+    },
+    {
+      "type": "fieldset",
+      "title": "config",
+      "htmlClass": "moduleConfig",
+      "items": [
+        {
+          "type": "button",
+          "title": "Open module readme",
+          "htmlClass": "repo_button",
+          "onClick": "(evt,node)=>{let siblings=$(evt.target).siblings('.readme_url');let element=siblings.toArray()[0];let url=element.innerText;let pos=$(evt.target).offset();process_readme(url,pos)}"
+        },
+        {
+          "type": "button",
+          "htmlClass": "hidden readme_url",
+          "title": "http://localhost:xxxx/modules/MMM-TouchButton/README.md"
+        },
+        {
+          "title": "animationSpeed",
+          "key": "MMM-TouchButton.config.animationSpeed"
+        },
+        {
+          "title": "classes",
+          "key": "MMM-TouchButton.config.classes"
+        },
+        {
+          "type": "array",
+          "title": "buttons",
+          "deleteCurrent": false,
+          "items": {
+            "type": "fieldset",
+            "title": "buttons",
+            "items": [
+              {
+                "title": "name",
+                "key": "MMM-TouchButton.config.buttons[].name"
+              },
+              {
+                "title": "icon",
+                "key": "MMM-TouchButton.config.buttons[].icon"
+              },
+              {
+                "title": "imgIcon",
+                "key": "MMM-TouchButton.config.buttons[].imgIcon"
+              },
+              {
+                "title": "command",
+                "key": "MMM-TouchButton.config.buttons[].command"
+              },
+              {
+                "title": "args",
+                "key": "MMM-TouchButton.config.buttons[].args"
+              },
+              {
+                "title": "title",
+                "key": "MMM-TouchButton.config.buttons[].title"
+              },
+              {
+                "title": "notification",
+                "key": "MMM-TouchButton.config.buttons[].notification"
+              },
+              {
+                "type": "fieldset",
+                "title": "payload",
+                "items": [
+                  {
+                    "title": "type",
+                    "key": "MMM-TouchButton.config.buttons[].payload.type"
+                  },
+                  {
+                    "type": "array",
+                    "title": "payload",
+                    "deleteCurrent": false,
+                    "items": [
+                      {
+                        "title": "payload {{idx}}",
+                        "key": "MMM-TouchButton.config.buttons[].payload.payload[]",
+                        "type": "ace",
+                        "aceMode": "json",
+                        "aceTheme": "twilight",
+                        "width": "100%",
+                        "height": "100px"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "profiles",
+                "key": "MMM-TouchButton.config.buttons[].profiles"
+              },
+              {
+                "title": "classes",
+                "key": "MMM-TouchButton.config.buttons[].classes"
+              },
+              {
+                "type": "array",
+                "title": "conditions",
+                "deleteCurrent": false,
+                "items": {
+                  "type": "fieldset",
+                  "title": "conditions",
+                  "items": [
+                    {
+                      "title": "source",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].source"
+                    },
+                    {
+                      "title": "type",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].type"
+                    },
+                    {
+                      "title": "value",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].value"
+                    },
+                    {
+                      "title": "icon",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].icon"
+                    },
+                    {
+                      "title": "jsonpath",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].jsonpath"
+                    },
+                    {
+                      "title": "imgIcon",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].imgIcon"
+                    },
+                    {
+                      "title": "classes",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].classes"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "draggable": false
+        },
+        {
+          "title": "addEmptyTitle",
+          "key": "MMM-TouchButton.config.addEmptyTitle"
+        },
+        {
+          "title": "refreshOnNotification",
+          "key": "MMM-TouchButton.config.refreshOnNotification"
+        },
+        {
+          "title": "refreshOnlyIfValueChanged",
+          "key": "MMM-TouchButton.config.refreshOnlyIfValueChanged"
+        },
+        {
+          "title": "notificationDelay",
+          "key": "MMM-TouchButton.config.notificationDelay"
+        },
+        {
+          "type": "array",
+          "title": "notificationsAtStart",
+          "deleteCurrent": false,
+          "items": [
+            {
+              "title": "notificationsAtStart {{idx}}",
+              "key": "MMM-TouchButton.config.notificationsAtStart[]"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "value": {
+    "disabled": true,
+    "module": "MMM-TouchButton",
+    "position": "none",
+    "order": "*",
+    "inconfig": "0",
+    "config": {
+      "animationSpeed": 0,
+      "classes": null,
+      "buttons": [
+        {
+          "name": "",
+          "icon": "",
+          "imgIcon": null,
+          "command": "",
+          "args": "",
+          "title": null,
+          "notification": "",
+          "payload": {
+            "type": "",
+            "payload": {}
+          },
+          "profiles": null,
+          "classes": null,
+          "conditions": [
+          ]
+        }
+      ],
+      "addEmptyTitle": false,
+      "refreshOnNotification": true,
+      "refreshOnlyIfValueChanged": true,
+      "notificationDelay": 3000,
+      "notificationsAtStart": []
+    },
+    "animateIn": "none",
+    "animateOut": "none"
+  }
+}
