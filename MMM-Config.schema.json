@@ -450,7 +450,7 @@
                   "items": [
                     {
                       "title": "condition content source",
-                      "fieldHtmlClass":"source",
+                      "fieldHtmlClass":".source",
                       "key": "MMM-TouchButton.config.buttons[].conditions[].source",
                       "onChange":"(evt,node)=>{let vf='notistring';let cl={'out':'string','err':'string','code':'code','noti':'string'};let value=evt.target.value;let selectedclass=cl[value];var parentElement=$(evt.target).closest('fieldset');Object.keys(cl).forEach(k=>{let target=parentElement.find('div[class$='+cl[k]+']');let style=(cl[k]===selectedclass?'Block':'none');target.css('display',style)});if(value!=='noti'){parentElement.find('div[class$='+vf+']').css('display','none');}}",
                       "titleMap":{
