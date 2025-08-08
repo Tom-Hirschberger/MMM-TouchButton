@@ -1,0 +1,5 @@
+/* css */
+
+.m_MMM-TouchButton [class$="---typecode"] , [class$="---valuecode"] , [class$="---notistring"] {
+	display:none;
+}

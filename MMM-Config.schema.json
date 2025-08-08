@@ -232,28 +232,34 @@
                             "noti"
                           ]
                         },
-                        "notification": {
-                          "type": "string"
-                        },
-                        "type": {
+                        "typestring": {
                           "type": "string",
                           "enum":[
-                            "lt",
-                            "le",
-                            "gt",
-                            "ge",
                             "eq",
                             "incl",
                             "mt"
                           ]
                         },
-                        "value": {
+                        "typecode": {
+                          "type": "integer",
+                          "enum":[
+                            "lt",
+                            "le",
+                            "gt",
+                            "ge",
+                            "eq"
+                          ]
+                        },
+                        "notistring": {
                           "type": "string"
+                        },
+                        "valuestring": {
+                          "type": "string"
+                        },
+                        "valuecode": {
+                          "type": "integer"
                         },
                         "icon": {
-                          "type": "string"
-                        },
-                        "jsonpath": {
                           "type": "string"
                         },
                         "imgIcon": {
@@ -435,43 +441,82 @@
               },
               {
                 "type": "array",
-                "title": "conditions",
-                "deleteCurrent": false,
+                "title": "conditions for this button",
+                "deleteCurrent": true,
+                "draggable":true,
                 "items": {
                   "type": "fieldset",
-                  "title": "conditions",
+                  "title":"condition {{idx}}",
                   "items": [
                     {
-                      "title": "source",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].source"
+                      "title": "condition content source",
+                      "fieldHtmlClass":"source",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].source",
+                      "onChange":"(evt,node)=>{let vf='notistring';let cl={'out':'string','err':'string','code':'code','noti':'string'};let value=evt.target.value;let selectedclass=cl[value];var parentElement=$(evt.target).closest('fieldset');Object.keys(cl).forEach(k=>{let target=parentElement.find('div[class$='+cl[k]+']');let style=(cl[k]===selectedclass?'Block':'none');target.css('display',style)});if(value!=='noti'){parentElement.find('div[class$='+vf+']').css('display','none');}}",
+                      "titleMap":{
+                            "out":"command output string",
+                            "err":"command error string",
+                            "code":"command return code",
+                            "noti":"notification string"
+                      }
+                    },
+                   {
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].notistring",
+                      "title":"condition notification string",
+                      "fieldHtmlClass":"value-noti-string",
+                      "description": "this is the received notification to check the payload",
+                      "required":true
                     },
                     {
-                      "title": "notification",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].notification"
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].typestring",
+                      "title":"compare type",
+                      "fieldHtmlClass":"compare_type-string",
+                      "titleMap":{
+                            "eq":"source string equals value",
+                            "incl":"source string includes value",
+                            "mt":"value string is a regex to match source against"
+                      },
+                      "description": "select the compare type for the value against the source"
                     },
                     {
-                      "title": "type",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].type"
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].typecode",
+                      "title":"compare type",
+                      "fieldHtmlClass":"compare_type-code",
+                      "titleMap":{
+                            "lt":"less than",
+                            "le":"less than or equal",
+                            "gt":"greater than",
+                            "ge":"greater than or equal",
+                            "eq":"equal"
+                      },
+                      "description": "select the compare type for the value against the source",
+                      "required":true
                     },
                     {
-                      "title": "value",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].value"
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].valuestring",
+                      "title":"condition compare value string",
+                      "fieldHtmlClass":"compare_value-format-string",
+                      "description": "this is the value used in the condition comparison",
+                      "required":true
                     },
                     {
-                      "title": "icon",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].icon"
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].valuecode",
+                      "title":"condition compare value number",
+                      "fieldHtmlClass":"compare_value-format-code",
+                      "description": "this is the value used in the condition comparison",
+                      "required":true
                     },
                     {
-                      "title": "jsonpath",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].jsonpath"
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].classes",
+                      "title":"the classes to apply to this button if the condition expression is true",
+                      "fieldHtmlClass":"condition_classes",
+                      "required":false
                     },
                     {
-                      "title": "imgIcon",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].imgIcon"
-                    },
-                    {
-                      "title": "classes",
-                      "key": "MMM-TouchButton.config.buttons[].conditions[].classes"
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].icon",
+                      "title":"the icon name or path to icon file to apply to this button if the condition expression is true",
+                      "fieldHtmlClass":"condition_icon",
+                      "required":false
                     }
                   ]
                 }
