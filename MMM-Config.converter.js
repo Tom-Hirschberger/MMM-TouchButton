@@ -49,14 +49,14 @@ function converter(config_data, direction){
 			button.conditions.forEach(source_c =>{
 				let new_c = {}
 				new_c.source = source_c.source
-				new_c.value  = source_c.valuestring
-				if(new_c.source =='noti'){
+				if(new_c.source === 'noti'){
 					new_c.notification = source_c.notistring
+					new_c.type=source_c.typestring
 				} else if(source_c.source==='code'){
-					new_c.value  = source_c.valuecode
+					new_c.value = source_c.valuecode
 					new_c.type=source_c.typecode
 				} else {
-					new_c.value  = source_c.valuestring
+					new_c.value = source_c.valuestring
 					new_c.type=source_c.typestring
 				}
 				new_c.icon = source_c.icon || null
