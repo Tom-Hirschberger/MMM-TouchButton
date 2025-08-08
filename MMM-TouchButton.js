@@ -200,6 +200,22 @@ Module.register('MMM-TouchButton', {
           let curSource = curConditions[curCondId].source || null
 
           if((curSource != null) && (curSource != "out") && (curSource != "err") && (curSource != "code")){
+            let curNotiId = curSource
+            if (curSource === "noti"){
+              if (typeof curConditions[curCondId].notification !== "undefined"){
+                if (self.config.debug){
+                  Log.log(self.name+": "+"Transforming the noti condition of button with name "+curButtonConfig.name)
+                }
+                curNotiId = curConditions[curCondId].notification
+                curConditions[curCondId].source = curNotiId
+                self.config.buttons[curBtnId].conditions = curConditions
+                if (self.config.debug){
+                   Log.log(self.name+": "+"The new config is now: \n"+JSON.stringify(self.config.buttons,null, 2))
+                }
+              } else {
+                Log.log(self.name+": "+"Need to ignore nofication condition of button with name "+curButtonConfig.name+" cause there is no notification id set in the condition!")
+              }
+            }
             let curNotiObj = self.notifications[curSource] || []
             let curResObj = {}
             curResObj["id"] = curBtnId
