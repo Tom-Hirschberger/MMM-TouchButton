@@ -228,8 +228,12 @@
                           "enum":[
                             "out",
                             "err",
-                            "code"
+                            "code",
+                            "noti"
                           ]
+                        },
+                        "notification": {
+                          "type": "string"
                         },
                         "type": {
                           "type": "string",
@@ -440,6 +444,10 @@
                     {
                       "title": "source",
                       "key": "MMM-TouchButton.config.buttons[].conditions[].source"
+                    },
+                    {
+                      "title": "notification",
+                      "key": "MMM-TouchButton.config.buttons[].conditions[].notification"
                     },
                     {
                       "title": "type",
