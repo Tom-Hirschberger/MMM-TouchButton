@@ -15,7 +15,7 @@ function converter(config_data, direction){
 			  new_c.source = source_c.source
 			  if(source_c.source=='code'){
 			  	new_c.typecode=source_c.type
-			  	new_c.valuecode = source_c.value
+			  	new_c.valuecode=source_c.value
 			  } else {
 			  	new_c.typestring=source_c.type
 			  	new_c.valuestring=source_c.value
@@ -52,6 +52,7 @@ function converter(config_data, direction){
 				if(new_c.source === 'noti'){
 					new_c.notification = source_c.notistring
 					new_c.type=source_c.typestring
+					new_c,value = source_c.valuestring
 				} else if(source_c.source==='code'){
 					new_c.value = source_c.valuecode
 					new_c.type=source_c.typecode
