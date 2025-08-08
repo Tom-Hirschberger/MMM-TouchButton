@@ -10,7 +10,6 @@ Module.register('MMM-TouchButton', {
 
   defaults: {
     animationSpeed: 0,
-    classes: null,
     buttons: [],
     addEmptyTitle: false,
     buttons: [],
@@ -113,14 +112,7 @@ Module.register('MMM-TouchButton', {
   getDom: function() {
     const self = this
     const wrapper = document.createElement('div')
-      let moduleClasses = []
-      
-      if(self.config["classes"] != null){
-        self.config["classes"].split(" ").forEach(element => moduleClasses.push(element))
-      }
-
       wrapper.classList.add("touchButtonRootWrapper")
-      moduleClasses.forEach(element => wrapper.classList.add(element))
 
       for(let curId = 0; curId < self.config.buttons.length; curId++){
         let curButtonConfig = self.config.buttons[curId]

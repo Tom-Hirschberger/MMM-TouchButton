@@ -81,7 +81,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
 | animationSpeed | If the module updates the visible objects the changes can be animated. | Integer | 0 |
-| classes | A space separted String of CSS classes that should be added to the wrapper classes. If you use mulitiple instances of the module you can style them differently by added different classes. | String like "myClass1 myClass2 | null |
+| ~classes~ | Support has been removed with 0.0.11 of the module. Please use the module->classes option of MagicMirror instead. | ~String like "myClass1 myClass2~ | null |
 | addEmptyTitle | If titles are used for some buttons this option makes it possible to add empty title dummys to all buttons without title | Boolean | false |
 | buttons | The array containing an object for each button | Array [] | [] |
 | refreshOnNotification | If conditions which use the payload of notifications as type the modules content gets refreshed if one of these notifications is received. | Boolean | true |
