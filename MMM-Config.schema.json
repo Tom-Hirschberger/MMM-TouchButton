@@ -166,11 +166,11 @@
           "type": "object",
           "title": "config",
           "properties": {
+            "debug": {
+              "type": "boolean"
+            },
             "animationSpeed": {
               "type": "integer"
-            },
-            "classes": {
-              "type": "string"
             },
             "buttons": {
               "type": "array",
@@ -356,8 +356,8 @@
           "key": "MMM-TouchButton.config.animationSpeed"
         },
         {
-          "title": "classes",
-          "key": "MMM-TouchButton.config.classes"
+          "title": "debug",
+          "key": "MMM-TouchButton.config.debug"
         },
         {
           "type": "array",
@@ -509,8 +509,8 @@
     "order": "*",
     "inconfig": "0",
     "config": {
+      "debug": false,
       "animationSpeed": 0,
-      "classes": null,
       "buttons": [
         {
           "name": "",

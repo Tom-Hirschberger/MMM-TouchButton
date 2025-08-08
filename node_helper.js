@@ -5,6 +5,7 @@
  * MIT Licensed.
  */
 const NodeHelper = require('node_helper')
+const Log = require("logger");
 const spawnSync = require('child_process').spawnSync
 const fs = require('fs')
 const path = require('path')
@@ -17,9 +18,10 @@ module.exports = NodeHelper.create({
     this.configs = {}
   },
 
-  runButtonAction: function(moduleId, buttonConfig, buttonId) {
+  runButtonAction: function(moduleId, debug, buttonConfig, buttonId) {
     const self = this
-    console.log(self.name+": Do action(s) of button: "+buttonConfig.name)
+
+    Log.log(self.name+": Do action(s) of button: "+buttonConfig.name)
 
     let output = null
     let errOut = null
@@ -27,9 +29,6 @@ module.exports = NodeHelper.create({
     if(typeof buttonConfig.command !== "undefined"){
       let curCommand = buttonConfig.command
 
-      // if(curCommand.startsWith("./")){
-      //   curCommand = scriptsDir+"/"+curCommand
-      // }
       let args = []
 
       if(typeof buttonConfig.args !== "undefined"){
@@ -56,15 +55,21 @@ module.exports = NodeHelper.create({
       }
 
       try {
-        // console.log("Running "+curCommand + " with args: "+args.toString())
+        if (debug){
+          Log.log(self.name+": Running "+curCommand + " with args: "+args.toString())
+        }
+        
         let spawnOutput = spawnSync(curCommand, args, options)
         returnCode = spawnOutput.status
         output = spawnOutput.stdout
         errOut = spawnOutput.stderr
 
-        // console.log("ReturnCode: "+returnCode)
-        // console.log("Output: "+output)
-        // console.log("ErrOut: "+errOut)
+
+        if (debug){
+          Log.log(self.name+": ReturnCode: "+returnCode)
+          Log.log(self.name+": Output: "+output)
+          Log.log(self.name+": Error-Output: "+errOut)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -98,9 +103,7 @@ module.exports = NodeHelper.create({
       self.configs[payload[0]] = payload[1]
       self.started = true
     } else if (notification === 'BUTTON_PRESSED' ){
-      self.runButtonAction(payload.moduleId, self.configs[payload.moduleId].buttons[payload.id], payload.id)
-    } else {
-      console.log(this.name + ': Received Notification: ' + notification)
+      self.runButtonAction(payload.moduleId, self.configs[payload.moduleId].debug, self.configs[payload.moduleId].buttons[payload.id], payload.id)
     }
   }
 })

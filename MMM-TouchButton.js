@@ -9,6 +9,7 @@
 Module.register('MMM-TouchButton', {
 
   defaults: {
+    debug: false,
     animationSpeed: 0,
     buttons: [],
     addEmptyTitle: false,
@@ -305,7 +306,7 @@ Module.register('MMM-TouchButton', {
     const self = this
     if (self.moduleId === payload["moduleId"]){
       if(notification === "SEND_NOTIFICATION"){
-        console.log(self.name+": Sending notification to all other modules")
+        Log.log(self.name+": Sending notification to all other modules")
         if(typeof payload.payload !== "undefined"){
           self.sendNotification(payload.notification, payload.payload)
         } else {
