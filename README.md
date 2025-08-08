@@ -128,7 +128,8 @@ The following sources are possible:
 * "out" which is the standard out stream (normal output) of the command
 * "err" which is the error stream of the command
 * "code" which is the return code of the command (unix style is to return 0 if everything is fine and anything else if a problem occured)
-* Any other type will be interpreted as the name of a notification
+* "noti" the payload of the notification with the name/id specified with `notification` in the condition will be validated
+* Any other string will be treated as the name of a notification (same as "noti" with `notification`)
 
 And we need a value to compare to which is configured with the "value" option.
 
