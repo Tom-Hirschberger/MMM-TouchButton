@@ -10,38 +10,40 @@ function converter(config_data, direction){
 			let nc = []
 			// the object must match the custom schema definition
 			//console.log("there are "+button.conditions.length+" conditions")
-			button.conditions.forEach(source_c =>{
-			  let new_c = {}
-			  new_c.source = source_c.source
-			  switch(source_c.source){
-			  	case 'code':
-			  		new_c.typecode=source_c.type
-			  		new_c.valuecode=source_c.value
-			  		break;
-			  	case 'out':
-			  	case 'err':
-				  	new_c.typestring=source_c.type
-				  	new_c.valuestring=source_c.value
-			  		break;
-			  	case 'noti':
-			  	  new_c.notistring = source_c.notification
-				  	new_c.typestring=source_c.type
-				  	new_c.valuestring=source_c.value
-			  	  break;
-			  	default:
-			  	  new_c.notistring = source_c.source
-				  	new_c.typestring=source_c.type
-				  	new_c.valuestring=source_c.value
-				  	new_c.source='noti'
-			  	  break
-			  }
-			  new_c.icon = source_c.icon || ""
-			  new_c.imgIcon = source_c.imgIcon || ""
-			  new_c.classes =  source_c.classes || ""
+			if(button.conditions){
+				button.conditions.forEach(source_c =>{
+				  let new_c = {}
+				  new_c.source = source_c.source
+				  switch(source_c.source){
+				  	case 'code':
+				  		new_c.typecode=source_c.type
+				  		new_c.valuecode=source_c.value
+				  		break;
+				  	case 'out':
+				  	case 'err':
+					  	new_c.typestring=source_c.type
+					  	new_c.valuestring=source_c.value
+				  		break;
+				  	case 'noti':
+				  	  new_c.notistring = source_c.notification
+					  	new_c.typestring=source_c.type
+					  	new_c.valuestring=source_c.value
+				  	  break;
+				  	default:
+				  	  new_c.notistring = source_c.source
+					  	new_c.typestring=source_c.type
+					  	new_c.valuestring=source_c.value
+					  	new_c.source='noti'
+				  	  break
+				  }
+				  new_c.icon = source_c.icon || ""
+				  new_c.imgIcon = source_c.imgIcon || ""
+				  new_c.classes =  source_c.classes || ""
 
-				// save the new field structure in the array
-			  nc.push(new_c)
-			})
+					// save the new field structure in the array
+				  nc.push(new_c)
+				})
+			}
 			if(nc.length>0){
 				//console.log("there are "+nc.length+" new conditions")
 				button.conditions = JSON.parse(JSON.stringify(nc))
