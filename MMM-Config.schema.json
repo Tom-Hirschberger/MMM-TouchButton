@@ -464,8 +464,7 @@
                       "key": "MMM-TouchButton.config.buttons[].conditions[].notistring",
                       "title":"condition notification string",
                       "fieldHtmlClass":"value-noti-string",
-                      "description": "this is the received notification to check the payload",
-                      "required":true
+                      "description": "this is the received notification to check the payload"
                     },
                     {
                       "key": "MMM-TouchButton.config.buttons[].conditions[].typestring",
@@ -489,34 +488,29 @@
                             "ge":"greater than or equal",
                             "eq":"equal"
                       },
-                      "description": "select the compare type for the value against the source",
-                      "required":true
+                      "description": "select the compare type for the value against the source"
                     },
                     {
                       "key": "MMM-TouchButton.config.buttons[].conditions[].valuestring",
                       "title":"condition compare value string",
                       "fieldHtmlClass":"compare_value-format-string",
-                      "description": "this is the value used in the condition comparison",
-                      "required":true
+                      "description": "this is the value used in the condition comparison"
                     },
                     {
                       "key": "MMM-TouchButton.config.buttons[].conditions[].valuecode",
                       "title":"condition compare value number",
                       "fieldHtmlClass":"compare_value-format-code",
-                      "description": "this is the value used in the condition comparison",
-                      "required":true
+                      "description": "this is the value used in the condition comparison"
                     },
                     {
                       "key": "MMM-TouchButton.config.buttons[].conditions[].classes",
                       "title":"the classes to apply to this button if the condition expression is true",
-                      "fieldHtmlClass":"condition_classes",
-                      "required":false
+                      "fieldHtmlClass":"condition_classes"
                     },
                     {
                       "key": "MMM-TouchButton.config.buttons[].conditions[].icon",
                       "title":"the icon name or path to icon file to apply to this button if the condition expression is true",
-                      "fieldHtmlClass":"condition_icon",
-                      "required":false
+                      "fieldHtmlClass":"condition_icon"
                     }
                   ]
                 }
