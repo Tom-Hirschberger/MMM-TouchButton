@@ -13,19 +13,31 @@ function converter(config_data, direction){
 			button.conditions.forEach(source_c =>{
 			  let new_c = {}
 			  new_c.source = source_c.source
-			  if(source_c.source=='code'){
-			  	new_c.typecode=source_c.type
-			  	new_c.valuecode=source_c.value
-			  } else {
-			  	new_c.typestring=source_c.type
-			  	new_c.valuestring=source_c.value
-					if(source_c.source === 'noti'){
-					 	new_c.notistring = source_c.notification
-					}
+			  switch(source_c.source){
+			  	case 'code':
+			  		new_c.typecode=source_c.type
+			  		new_c.valuecode=source_c.value
+			  		break;
+			  	case 'out':
+			  	case 'err':
+				  	new_c.typestring=source_c.type
+				  	new_c.valuestring=source_c.value
+			  		break;
+			  	case 'noti':
+			  	  new_c.notistring = source_c.notification
+				  	new_c.typestring=source_c.type
+				  	new_c.valuestring=source_c.value
+			  	  break;
+			  	default:
+			  	  new_c.notistring = source_c.source
+				  	new_c.typestring=source_c.type
+				  	new_c.valuestring=source_c.value
+				  	new_c.source='noti'
+			  	  break
 			  }
-			  new_c.icon = source_c.icon || null
-			  new_c.imgIcon = source_c.imgIcon || null
-			  new_c.classes =  source_c.classes || null
+			  new_c.icon = source_c.icon || ""
+			  new_c.imgIcon = source_c.imgIcon || ""
+			  new_c.classes =  source_c.classes || ""
 
 				// save the new field structure in the array
 			  nc.push(new_c)
@@ -49,16 +61,21 @@ function converter(config_data, direction){
 			button.conditions.forEach(source_c =>{
 				let new_c = {}
 				new_c.source = source_c.source
-				if(new_c.source === 'noti'){
-					new_c.notification = source_c.notistring
-					new_c.type=source_c.typestring
-					new_c,value = source_c.valuestring
-				} else if(source_c.source==='code'){
-					new_c.value = source_c.valuecode
-					new_c.type=source_c.typecode
-				} else {
-					new_c.value = source_c.valuestring
-					new_c.type=source_c.typestring
+				switch(source_c.source){
+					case 'noti':
+						new_c.notification = source_c.notistring
+						new_c.type = source_c.typestring
+						new_c.value = source_c.valuestring
+						break;
+					case 'out':
+					case 'err':
+						new_c.value = source_c.valuestring
+						new_c.type = source_c.typestring
+						break;
+					case 'code':
+						new_c.value = source_c.valuecode
+						new_c.type = source_c.typecode
+					  break;
 				}
 				new_c.icon = source_c.icon || null
 				if(source_c.icon && source_c.icon.includes('/'))
