@@ -59,31 +59,33 @@ function converter(config_data, direction){
 			// for each key (morning, afternoon, eventing, date..., weather )
 			// push an object onto the 'array '
 			let nc = []
-			// the object must match the custom schema definition
-			button.conditions.forEach(source_c =>{
-				let new_c = {}
-				new_c.source = source_c.source
-				switch(source_c.source){
-					case 'noti':
-						new_c.notification = source_c.notistring
-						new_c.type = source_c.typestring
-						new_c.value = source_c.valuestring
+			if(button.conditions){
+				// the object must match the custom schema definition
+				button.conditions.forEach(source_c =>{
+					let new_c = {}
+					new_c.source = source_c.source
+					switch(source_c.source){
+						case 'noti':
+							new_c.notification = source_c.notistring
+							new_c.type = source_c.typestring
+							new_c.value = source_c.valuestring
+							break;
+						case 'out':
+						case 'err':
+							new_c.value = source_c.valuestring
+							new_c.type = source_c.typestring
+							break;
+						case 'code':
+							new_c.value = source_c.valuecode
+							new_c.type = source_c.typecode
 						break;
-					case 'out':
-					case 'err':
-						new_c.value = source_c.valuestring
-						new_c.type = source_c.typestring
-						break;
-					case 'code':
-						new_c.value = source_c.valuecode
-						new_c.type = source_c.typecode
-					  break;
-				}
-				new_c.icon = source_c.icon || null
-				if(source_c.icon && source_c.icon.includes('/'))
-					new_c.imgIcon = source_c.icon
-				nc.push(new_c)
-			})
+					}
+					new_c.icon = source_c.icon || null
+					if(source_c.icon && source_c.icon.includes('/'))
+						new_c.imgIcon = source_c.icon
+					nc.push(new_c)
+				})
+			}
 			if(nc.length){
 				button.conditions=JSON.parse(JSON.stringify(nc))
 			}
