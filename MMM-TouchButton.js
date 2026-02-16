@@ -309,10 +309,19 @@ Module.register('MMM-TouchButton', {
     }
 	},
 
-  socketNotificationReceived: function (notification, payload) {
-    const self = this
+socketNotificationReceived: function (notification, payload) {
+    const self = this;
     if (self.moduleId === payload["moduleId"]){
       if(notification === "SEND_NOTIFICATION"){
+        
+        // --- 500ms lockout to prevent multiple triggers ---
+        const now = Date.now();
+        if (self.lastGlobalSend && (now - self.lastGlobalSend < 500)) {
+            return; // Kill any notification sent within 500ms of the last one
+        }
+        self.lastGlobalSend = now;
+        // ----------------
+
         console.log(self.name+": Sending notification to all other modules")
         if(typeof payload.payload !== "undefined"){
           self.sendNotification(payload.notification, payload.payload)
