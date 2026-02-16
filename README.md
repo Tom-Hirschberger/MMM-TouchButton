@@ -19,7 +19,7 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 ## Installation
 
 ```bash
-  
+
   cd ~/MagicMirror/modules
   git clone https://github.com/Tom-Hirschberger/MMM-TouchButton.git
   cd MMM-TouchButton
@@ -31,7 +31,7 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 **Warning: Do not use spaces in the buttons names. You can use spaces in the button titles but not in the names!**
 
 ```json5
-  
+
         {
    module: "MMM-TouchButton",
    position: "bottom_left",
@@ -45,7 +45,7 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 An example with three buttons. One to shutdown the host, one to reboot it and one to hide/show a module:
 
 ```json5
-  
+
         {
    module: "MMM-TouchButton",
    position: "bottom_left",
@@ -81,13 +81,14 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
 | animationSpeed | If the module updates the visible objects the changes can be animated. | Integer | 0 |
-| classes | A space separted String of CSS classes that should be added to the wrapper classes. If you use mulitiple instances of the module you can style them differently by added different classes. | String like "myClass1 myClass2 | null |
+| ~classes~ | Support has been removed with 0.0.11 of the module. Please use the module->classes option of MagicMirror instead. | ~String like "myClass1 myClass2~ | null |
 | addEmptyTitle | If titles are used for some buttons this option makes it possible to add empty title dummys to all buttons without title | Boolean | false |
 | buttons | The array containing an object for each button | Array [] | [] |
 | refreshOnNotification | If conditions which use the payload of notifications as type the modules content gets refreshed if one of these notifications is received. | Boolean | true |
 | refreshOnlyIfValueChanged | Normally the module gets refreshed if one of the conditional notifications gets received. If "refreshOnlyIfValueChanged" is set to true the module only gets refreshed if the payload of the notification changed to the last refresh. | Boolean | true |
 | notificationsAtStart | If the module should send some notifications after the startup the can be configured in this array. The array should contain a array of for each notification. The first element is the name, the second one the payload. The payload is optional. (i.e. notificationsAtStart: [["dummyOne"], ["dummyTwo", "dummyPayload"]]). | Array | [] |
 | notificationDelay | The notifications configured with notificationsAtStart will be send after this amout of milliseconds after the module got started. | Integer | 3000 |
+| debounceDelay | Configure a global delay which no notificitions will be send between two events. | Integer | 300 |
 
 ### Buttons
 
@@ -128,7 +129,8 @@ The following sources are possible:
 * "out" which is the standard out stream (normal output) of the command
 * "err" which is the error stream of the command
 * "code" which is the return code of the command (unix style is to return 0 if everything is fine and anything else if a problem occured)
-* Any other type will be interpreted as the name of a notification
+* "noti" the payload of the notification with the name/id specified with `notification` in the condition will be validated
+* Any other string will be treated as the name of a notification (same as "noti" with `notification`)
 
 And we need a value to compare to which is configured with the "value" option.
 
