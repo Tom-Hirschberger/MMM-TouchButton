@@ -19,7 +19,7 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 ## Installation
 
 ```bash
-  
+
   cd ~/MagicMirror/modules
   git clone https://github.com/Tom-Hirschberger/MMM-TouchButton.git
   cd MMM-TouchButton
@@ -31,7 +31,7 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 **Warning: Do not use spaces in the buttons names. You can use spaces in the button titles but not in the names!**
 
 ```json5
-  
+
         {
    module: "MMM-TouchButton",
    position: "bottom_left",
@@ -45,7 +45,7 @@ Since version 0.0.2 it is possible to change classes or icons based at the retur
 An example with three buttons. One to shutdown the host, one to reboot it and one to hide/show a module:
 
 ```json5
-  
+
         {
    module: "MMM-TouchButton",
    position: "bottom_left",
@@ -88,6 +88,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | refreshOnlyIfValueChanged | Normally the module gets refreshed if one of the conditional notifications gets received. If "refreshOnlyIfValueChanged" is set to true the module only gets refreshed if the payload of the notification changed to the last refresh. | Boolean | true |
 | notificationsAtStart | If the module should send some notifications after the startup the can be configured in this array. The array should contain a array of for each notification. The first element is the name, the second one the payload. The payload is optional. (i.e. notificationsAtStart: [["dummyOne"], ["dummyTwo", "dummyPayload"]]). | Array | [] |
 | notificationDelay | The notifications configured with notificationsAtStart will be send after this amout of milliseconds after the module got started. | Integer | 3000 |
+| debounceDelay | Configure a global delay which no notificitions will be send between two events. | Integer | 300 |
 
 ### Buttons
 

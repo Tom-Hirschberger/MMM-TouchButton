@@ -17,7 +17,8 @@ Module.register('MMM-TouchButton', {
     refreshOnNotification: true,
     refreshOnlyIfValueChanged: true,
     notificationDelay: 3000,
-    notificationsAtStart: []
+    notificationsAtStart: [],
+	debounceDelay: 300
   },
 
   getScripts: function () {
@@ -144,7 +145,7 @@ Module.register('MMM-TouchButton', {
             curTitleObj.className = "touchButton button title title-"+curButtonConfig.name
             curTitleObj.innerHTML = curTitle
             curCondButtonConfig[2].forEach(element => curTitleObj.classList.add(element))
-            
+
             buttonWrapper.appendChild(curTitleObj)
           }
 
@@ -274,7 +275,7 @@ Module.register('MMM-TouchButton', {
           let curCondition = curNotificationUsers[curCondBtnIdx].condition
           let curJsonpath = curCondition.jsonpath || null
           let curResult
-          
+
           if (curJsonpath != null) {
             let curParsedPayload = self.tryParseJSONObject(payload)
             if(curParsedPayload){
@@ -292,7 +293,7 @@ Module.register('MMM-TouchButton', {
           }
 
           let oldResultObj = self.results[curId] || null
-          
+
           let oldResult = null
           if(oldResultObj != null){
             oldResult = oldResultObj[curResultExtendedNotification] || null
@@ -322,11 +323,12 @@ socketNotificationReceived: function (notification, payload) {
     const self = this;
     if (self.moduleId === payload["moduleId"]){
       if(notification === "SEND_NOTIFICATION"){
-        
-        // --- 500ms lockout to prevent multiple triggers ---
+
+        // --- configured ms lockout to prevent multiple triggers ---
         const now = Date.now();
-        if (self.lastGlobalSend && (now - self.lastGlobalSend < 500)) {
-            return; // Kill any notification sent within 500ms of the last one
+        if (self.lastGlobalSend && (now - self.lastGlobalSend < self.config.debounceDelay)) {
+			Log.info(self.name+": Skipping notifications cause of the debounce delay")
+            return; // Kill any notification sent within configured ms of the last one
         }
         self.lastGlobalSend = now;
         // ----------------
