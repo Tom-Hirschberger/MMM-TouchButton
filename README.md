@@ -81,7 +81,7 @@ An example with three buttons. One to shutdown the host, one to reboot it and on
 | Option  | Description | Type | Default |
 | ------- | --- | --- | --- |
 | animationSpeed | If the module updates the visible objects the changes can be animated. | Integer | 0 |
-| classes | A space separted String of CSS classes that should be added to the wrapper classes. If you use mulitiple instances of the module you can style them differently by added different classes. | String like "myClass1 myClass2 | null |
+| ~classes~ | Support has been removed with 0.0.11 of the module. Please use the module->classes option of MagicMirror instead. | ~String like "myClass1 myClass2~ | null |
 | addEmptyTitle | If titles are used for some buttons this option makes it possible to add empty title dummys to all buttons without title | Boolean | false |
 | buttons | The array containing an object for each button | Array [] | [] |
 | refreshOnNotification | If conditions which use the payload of notifications as type the modules content gets refreshed if one of these notifications is received. | Boolean | true |
@@ -128,7 +128,8 @@ The following sources are possible:
 * "out" which is the standard out stream (normal output) of the command
 * "err" which is the error stream of the command
 * "code" which is the return code of the command (unix style is to return 0 if everything is fine and anything else if a problem occured)
-* Any other type will be interpreted as the name of a notification
+* "noti" the payload of the notification with the name/id specified with `notification` in the condition will be validated
+* Any other string will be treated as the name of a notification (same as "noti" with `notification`)
 
 And we need a value to compare to which is configured with the "value" option.
 

@@ -9,8 +9,8 @@
 Module.register('MMM-TouchButton', {
 
   defaults: {
+    debug: false,
     animationSpeed: 0,
-    classes: null,
     buttons: [],
     addEmptyTitle: false,
     buttons: [],
@@ -113,14 +113,7 @@ Module.register('MMM-TouchButton', {
   getDom: function() {
     const self = this
     const wrapper = document.createElement('div')
-      let moduleClasses = []
-      
-      if(self.config["classes"] != null){
-        self.config["classes"].split(" ").forEach(element => moduleClasses.push(element))
-      }
-
       wrapper.classList.add("touchButtonRootWrapper")
-      moduleClasses.forEach(element => wrapper.classList.add(element))
 
       for(let curId = 0; curId < self.config.buttons.length; curId++){
         let curButtonConfig = self.config.buttons[curId]
@@ -207,6 +200,22 @@ Module.register('MMM-TouchButton', {
           let curSource = curConditions[curCondId].source || null
 
           if((curSource != null) && (curSource != "out") && (curSource != "err") && (curSource != "code")){
+            let curNotiId = curSource
+            if (curSource === "noti"){
+              if (typeof curConditions[curCondId].notification !== "undefined"){
+                if (self.config.debug){
+                  Log.log(self.name+": "+"Transforming the noti condition of button with name "+curButtonConfig.name)
+                }
+                curNotiId = curConditions[curCondId].notification
+                curConditions[curCondId].source = curNotiId
+                self.config.buttons[curBtnId].conditions = curConditions
+                if (self.config.debug){
+                   Log.log(self.name+": "+"The new config is now: \n"+JSON.stringify(self.config.buttons,null, 2))
+                }
+              } else {
+                Log.log(self.name+": "+"Need to ignore nofication condition of button with name "+curButtonConfig.name+" cause there is no notification id set in the condition!")
+              }
+            }
             let curNotiObj = self.notifications[curSource] || []
             let curResObj = {}
             curResObj["id"] = curBtnId
@@ -323,6 +332,7 @@ socketNotificationReceived: function (notification, payload) {
         // ----------------
 
         console.log(self.name+": Sending notification to all other modules")
+        Log.log(self.name+": Sending notification to all other modules")
         if(typeof payload.payload !== "undefined"){
           self.sendNotification(payload.notification, payload.payload)
         } else {
